@@ -52,5 +52,57 @@ export PATH=$PWD/bin:$PATH
 cd pharma-ledger-network/
 ```
 
+### Project Structure ###
+```
+├── loadFabric.sh               #script to download images, bin and samples
+├── pharma-ledger-network
+│   ├── configtx                #configurations for transactions
+│   │   └── configtx.yaml       #used by configtxgen tool
+│   ├── docker                  #docker configurations
+│   │   ├── docker-compose-ca.yaml
+│   │   └── docker-compose-pln-net.yaml
+│   ├── net-pln.sh              #main script
+│   ├── organizations           
+│   │   ├── cryptogen           #yaml files related to organisations crypto material
+|   |   ├── manufacturer        #chain code(smart contract) for manufacturer
+|   |   ├── pharmacy            #chain code(smart contract) for pharmacy
+|   |   └── wholesaler          #chain code(smart contract) for wholesaler
+│   ├── scripts                 #helping scripts for main script
+│   │   ├── createChannel.sh    
+│   │   ├── deploySmartContract.sh
+│   │   ├── invokeContract.sh
+│   │   ├── monitor.sh
+│   │   └── utils.sh
+│   └── system-genesis-block    #first block created to lay the foundation of thge network
+└── README.md
+```
 
+*NOTE\* All the .yaml are the configuration files that defines how diffrent binaries will function. They are passed as arguments in net-pln.sh.*
 
+6. **Starting the net work**
+```
+sudo ./net-pln up
+```
+*Note: Make sure you have set all your scripts to executable form in /scripts directory.*
+
+## Install Go
+Due to some unknown reasons, you need to install Go. [Link](https://go.dev/doc/install)
+
+7. **Set the Go Path**
+
+```
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+
+echo $GOPATH
+```
+8. **Start a channel**
+```
+sudo ./net-pln createChannel
+```
+
+*Congratualtions! You created a blockchain network using Hyperledger Fabric.*
+
+NOTE: While running all the above commands you can see + sign, this means the starting of the new command. 
+
+Tests and more explanations will be posted later.
